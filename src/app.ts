@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import MasterRouter from './routes/MasterRouter';
+import MasterRouter from './routes/masterRouter';
 import * as path from 'path';
 
 import passport from "passport";

@@ -20,6 +20,7 @@ class MasterRouter {
    * Connect routes to their matching routers.
    */
   private _configure() {
+    this.router.use('/notes', this.notesRouter);
     this.router.use('/auth', this.authRouter);
     this.router.use('/notes',this.verifyToken, this.notesRouter);
     this.router.use('/user',this.verifyToken, this.userRouter);

@@ -2,8 +2,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import MasterRouter from './routes/masterRouter';
 import * as path from 'path';
+import cors from 'cors';
 
 import passport from "passport";
+
+
+
 
 
 // load the environment variables from the .env file
@@ -19,6 +23,7 @@ class App {
 
   constructor(){
     this.app = express();
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.static(path.join(__dirname, 'public')));
@@ -28,24 +33,6 @@ class App {
     this.app.use('/api',MasterRouter);
     this.app.use(passport.initialize());
     this.app.use(passport.session());
-    this.app.use(this.cors());
-
-    var corsOptions = {
-      origin: 'http://example.com',
-      optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-    }
-
-    this.app.options("/*", function(req, res, next) {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-      res.sendStatus(200);
-    });
-  
-    this.app.all('*', function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      next();
-    });
 
 
 
